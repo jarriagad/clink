@@ -21,4 +21,5 @@ Then all you have to do is click your mouse to select where `clink` will type th
 
 Tips:
 > Use single quotes when the string contains any special charters
+
 > Does not deal with large files yet.
