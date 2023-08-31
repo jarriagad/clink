@@ -13,8 +13,7 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Install system dependencies
-      run: sudo apt-get update && sudo apt-get install -y libx11-dev libxi-dev libxtst-dev
-
+      run: sudo apt-get update && sudo apt-get install -y libx11-dev libxi-dev libxtst-dev libxdo-dev
 
     - name: Install Rust
       uses: actions-rs/toolchain@v1
