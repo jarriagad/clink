@@ -1,0 +1,32 @@
+name: Build and Upload Rust Binary
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Install Rust
+      uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+        override: true
+
+    - name: Build Release
+      run: |
+        cargo build --release  # Build the project in release mode
+      env:
+        RUST_BACKTRACE: 1
+
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: my-artifact  # Name your artifact
+        path: src/target/release/*  # Upload all files from the release directory
+
