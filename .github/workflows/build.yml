@@ -19,6 +19,13 @@ jobs:
             name: ubi-Linux-x86_64-musl.tar.gz
             cross: false
             cargo_command: cargo
+          - os_name: Linux-x86_64
+            os: ubuntu-20.04
+            target: x86_64-unknown-linux-gnu
+            bin: ubi
+            name: ubi-Linux-x86_64-musl.tar.gz
+            cross: false
+            cargo_command: cargo
 
          # - os_name: macOS-x86_64
          #   os: macOS-latest
@@ -42,7 +49,7 @@ jobs:
       if: ${{ !matrix.platform.cross }}
     
     - name: Install musl-tools on Linux
-      run: sudo apt-get update --yes && sudo apt-get install --yes musl-tools libx11-dev libxi-dev libxtst-dev libxdo-dev
+      run: sudo apt-get update --yes && sudo apt-get install --yes musl-tools libx11-dev libxi-dev libxtst-dev libxdo-dev && rustup target add x86_64-unknown-linux-musl
       if: contains(matrix.platform.os, 'ubuntu') && !matrix.platform.cross
 
     - name: Install cross if cross-compiling (*nix)
