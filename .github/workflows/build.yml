@@ -15,8 +15,8 @@ jobs:
           - os_name: Linux-x86_64
             os: ubuntu-20.04
             target: x86_64-unknown-linux-gnu
-            bin: ubi
-            name: ubi-Linux-x86_64-musl.tar.gz
+            bin: clink
+            name: clink-Linux-x86_64-gnu.tar.gz
             cross: false
             cargo_command: cargo
 
@@ -59,7 +59,7 @@ jobs:
     - name: Build binary (*nix)
       shell: bash
       run: |
-                  ${{ matrix.platform.cargo_command }} build --release --target ${{ matrix.platform.target }}
+        ${{ matrix.platform.cargo_command }} build --release --target ${{ matrix.platform.target }}
       if: ${{ !contains(matrix.platform.os, 'windows') }}
 
     - name: Create Release
@@ -81,6 +81,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./target/release/clink
-        asset_name: clink
+        asset_path: ./target/${{ matrix.platform.target }}/release/${{ matrix.platform.bin }}
+        asset_name: ${{ matrix.platform.bin }}
         asset_content_type: application/octet-stream
